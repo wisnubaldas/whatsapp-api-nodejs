@@ -295,7 +295,10 @@ class WhatsAppInstance {
     }
 
     init(whatsappData) {
-        const conn = new WAConnection();
+        const conn = new WAConnection({
+            printQRInTerminal: true,
+            connectTimeoutMs: 5000
+        });
         conn.logger.level = 'warn';
         if (whatsappData) {
             const path = `./Instances/${whatsappData}`;
@@ -303,7 +306,7 @@ class WhatsAppInstance {
         }
         conn.version = [3, 3234, 9];
         conn.browserDescription = [
-            "whatsappAPI",
+            "HIK Studio",
             "Chrome",
             "1.0",
         ];
