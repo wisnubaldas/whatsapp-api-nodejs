@@ -2,7 +2,8 @@ require('dotenv').config()
 const {
     MessageType,
     WAConnection,
-    Mimetype
+    Mimetype,
+    ReconnectMode
 } = require("@adiwajshing/baileys")
 const QRCode = require("qrcode")
 const { v4: uuidv4 } = require('uuid')
@@ -295,10 +296,8 @@ class WhatsAppInstance {
     }
 
     init(whatsappData) {
-        const conn = new WAConnection({
-            printQRInTerminal: true,
-            connectTimeoutMs: 5000
-        });
+        const conn = new WAConnection();
+        conn.autoReconnect = ReconnectMode.onConnectionLost
         conn.logger.level = 'warn';
         if (whatsappData) {
             const path = `./Instances/${whatsappData}`;
